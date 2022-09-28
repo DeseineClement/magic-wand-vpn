@@ -125,5 +125,4 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Terraspace up all
-        run: |
-          TS_ENV=${{ matrix.env }} terraspace all up -y
+        run: TS_ENV=${{ matrix.env }} terraspace all up -y

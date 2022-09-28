@@ -46,6 +46,8 @@ jobs:
   plan-all:
     environment: ${{ matrix.env }}
     runs-on: ubuntu-latest
+    needs:
+      - validate-all
     strategy:
       matrix:
         env: [dev]

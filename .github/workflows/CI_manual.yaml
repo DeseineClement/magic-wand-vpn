@@ -1,0 +1,43 @@
+on:
+  workflow_call:
+    inputs:
+      command:
+        description: 'The Terraspace command to run (default: up)'
+        type: string
+        required: false
+        default: "up"
+
+jobs:
+  run-all:
+    environment: ${{ matrix.env }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        env: [ dev ]
+    steps:
+      - name: Checkout on ${{ github.ref_name }}
+        uses: actions/checkout@v3
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@477b21f02be01bcb8030d50f37cfec92bfa615b6
+        with:
+          ruby-version: 3.0
+
+      - name: Install Terraspace
+        run: bundle update
+
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+          terraform_wrapper: false
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Terraspace ${{ inputs.command }} all
+        run: TS_ENV=${{ matrix.env }} terraspace all ${{ inputs.command }}

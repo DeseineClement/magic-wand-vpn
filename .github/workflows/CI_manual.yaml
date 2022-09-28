@@ -42,4 +42,4 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Terraspace ${{ inputs.command }} all
-        run: TS_ENV=${{ matrix.env }} terraspace all ${{ inputs.command }}
+        run: TS_ENV=${{ matrix.env }} terraspace all ${{ inputs.command }} -y

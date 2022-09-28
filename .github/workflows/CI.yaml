@@ -9,7 +9,7 @@ env:
   TERRAFORM_VERSION: 1.1.6
 
 jobs:
-  validate-all:
+  plan-all:
     environment: ${{ matrix.env }}
     runs-on: ubuntu-latest
     strategy:
@@ -40,5 +40,5 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Terraspace validate ALL
+      - name: Terraspace plan all
         run: TS_ENV=${{ matrix.env }} terraspace all validate

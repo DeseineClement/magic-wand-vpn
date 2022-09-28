@@ -82,14 +82,11 @@ jobs:
           # shellcheck disable=SC2086
           for i in log/plan/*.log
             do
-            echo "$i"
-            (! grep "has not been deployed yet" ${i} >/dev/null && grep -A15 "Error: " ${i}) && KO=1 || KO=0
-            echo ""
-            echo ""
-            [[ ${KO} -eq 1 ]] && ERR=1
+              echo "$i"
+              echo ""
+              cat $i
+              echo ""
             done
-          [[ ${ERR} -eq 1 ]] && exit 1
-          exit 0
 
   up-all:
     environment: ${{ matrix.env }}

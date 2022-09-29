@@ -78,7 +78,7 @@ jobs:
 
       - name: Terraspace plan all
         run: | 
-          TS_ENV=${{ matrix.env }} terraspace all plan
+          TS_ENV=${{ matrix.env }} terraspace all plan --no-exit-on-fail
           # shellcheck disable=SC2086
           for i in log/plan/*.log
             do

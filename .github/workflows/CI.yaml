@@ -27,6 +27,16 @@ jobs:
           VALIDATE_TERRAFORM_TERRASCAN: false
           SHELLCHECK_OPTS: "-e SC2030 -e SC2031"
 
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+          terraform_wrapper: false
+
+      - name: Terraform format
+        id: fmt
+        run: find app/stacks/* -type d | grep -v tfvars | awk '{print "terraform fmt -check -diff "$1}' | sh
+
   validate-all:
     environment: ${{ matrix.env }}
     runs-on: ubuntu-latest

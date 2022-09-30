@@ -55,7 +55,7 @@ jobs:
 
       - name: Scan stacks
         run: |
-          for $i in app/stacks/*
+          for i in app/stacks/*
             do
               tfsec $i --soft-fail
             done

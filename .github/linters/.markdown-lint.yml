@@ -1,0 +1,4 @@
+MD013:
+  line_length: 800
+MD033: false # Inline HTML
+MD024: false # Duplicate headers
